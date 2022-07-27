@@ -21,7 +21,7 @@ sdl::shared_ptr<SDL_Renderer> game::renderer = nullptr;
 SDL_Event game::event;
 
 constexpr int WIN_W = 704, WIN_H = 640;  // window size
-Sprite emptySpace;
+static Sprite emptySpace;
 
 const bool game::init()
 {
@@ -119,7 +119,7 @@ game::game(
     AssetsManager::init();
     board::init();
 
-    Sprite emptySpace = *AssetsManager::getSprite(sq_dark_gray);
+    emptySpace = Sprite (*AssetsManager::getSprite(sq_dark_gray));
 
     emptySpace.setPosition(0, 0);
     emptySpace.setSize(WIN_W, WIN_H);

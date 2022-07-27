@@ -28,7 +28,10 @@ Sprite::Sprite(const Sprite& obj) :
 	texture(obj.texture),
 	srcRect(obj.srcRect),
 	destRect(obj.destRect)
-{};
+{
+	if (obj.getEntity() != nullptr)
+		this->init <Sprite>(obj.getEntity());
+};
 
 // sprite copy assignment constructor
 Sprite& Sprite::operator=(const Sprite& obj) {

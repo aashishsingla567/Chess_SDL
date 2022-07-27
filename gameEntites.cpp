@@ -17,7 +17,7 @@ init (int x, int y, int w, int h, std::shared_ptr <Sprite> uSprite) {
 	iSprite.init <Sprite> (std::make_shared<Tile> (*this));
 	iSprite.setPosition(x, y);
 	iSprite.setSize(w, h);
-	this->addComponent <Sprite>(std::make_shared <Sprite> (iSprite));
+	iSprite = this->addComponent <Sprite>(std::make_shared <Sprite> (iSprite));
 	// debug 
 	{
 		std::cout << "Sprite with ID " << iSprite.getComponentId() << " has dimentions " << w << ' ' << h << std::endl;

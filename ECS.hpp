@@ -47,7 +47,7 @@ protected:
 public:
 	Entity() = default;
 	~Entity();
-
+	
 	template <typename T>
 	T& addComponent(std::shared_ptr<T> component)
 	{
@@ -121,8 +121,8 @@ public:
 		return componentId_;
 	}
 
-	virtual Entity getEntity() const
+	virtual std::shared_ptr <Entity> getEntity() const
 	{
-		return *entity_;
+		return entity_;
 	}
 };

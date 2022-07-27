@@ -107,8 +107,8 @@ void AssetsManager::init ( ) {
 	// debug
 	{
 		int fail = 0, success = 0;
-		for (const auto& [name, tex] : Sprites.map) {
-			if (tex.get() == nullptr) {
+		for (const auto& [name, sprite] : Sprites.map) {
+			if (sprite.get() == nullptr) {
 				fail++;
 			}
 			else success++;
