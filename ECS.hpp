@@ -32,18 +32,17 @@ public:
 	static void addCompoenent(
 		int typeId,
 		int componentId,
-		std::shared_ptr<Component> component);
+		std::shared_ptr<Component> component
+	);
 	static void removeComponent(int typeId, int componentId);
 	static void renderComponets();
 	static void updateComponets();
 };
 
-class Entity
-{
+class Entity {
 protected:
 	std::unordered_map<int, std::shared_ptr<Component>> myComponents_;
 	bool isAlive_ = true;
-
 public:
 	Entity() = default;
 	~Entity();

@@ -18,10 +18,6 @@ init (int x, int y, int w, int h, std::shared_ptr <Sprite> uSprite) {
 	iSprite.setPosition(x, y);
 	iSprite.setSize(w, h);
 	iSprite = this->addComponent <Sprite>(std::make_shared <Sprite> (iSprite));
-	// debug 
-	{
-		std::cout << "Sprite with ID " << iSprite.getComponentId() << " has dimentions " << w << ' ' << h << std::endl;
-	}
 }
 // Piece
 
@@ -34,6 +30,10 @@ void Piece::init(
 	int name,
 	int color
 ) {
+	// copy
+	// init
+	// set
+	// add
 	Sprite iSprite = *uSprite;
 	iSprite.init <Sprite>(std::make_shared<Piece> (*this));
 	iSprite.setPosition(x, y);
@@ -41,5 +41,4 @@ void Piece::init(
 	this->addComponent<Sprite>(std::make_shared <Sprite> (iSprite));
 	this->color = color;
 	this->name = name;
-	std::cout << "Sprite with id " << iSprite.getComponentId() << " had dimentions " << w << ' ' << h << std::endl;
 }

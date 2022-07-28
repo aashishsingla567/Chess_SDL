@@ -21,7 +21,7 @@ sdl::shared_ptr<SDL_Renderer> game::renderer = nullptr;
 SDL_Event game::event;
 
 constexpr int WIN_W = 704, WIN_H = 640;  // window size
-static Sprite emptySpace;
+static Entity emptySpace;
 
 const bool game::init()
 {
@@ -116,13 +116,25 @@ game::game(
 
     SDL_SetRenderDrawColor(this->renderer.get(), 255, 255, 255, 255);
 
+    /***************************************************************************
+    *                           IMPORTANT NOTE:-                               *
+    *       SPRITES ARE RENDERED IN THE ORDER IN WHICH THEY ARE INITIALIZED    *
+    *               (same goes for other component types as well)              *
+    *       i.e. the sprite with the lowest index is rendered first,           *
+    *        and the sprite with the highest index is rendered last.           *
+    *                                                                          *
+    *       P.S. These are indexes inside the type vector of ComponentsMap     *
+    *                                                                          *
+    ***************************************************************************/
+	
     AssetsManager::init();
+    auto emptySpaceSprite = Sprite (*AssetsManager::getSprite(sq_dark_gray));
+
+    emptySpaceSprite.setPosition(0, 0);
+    emptySpaceSprite.setSize(WIN_W, WIN_H);
+	
+	emptySpace.addComponent<Sprite>(std::make_shared <Sprite> (emptySpaceSprite));
     board::init();
-
-    emptySpace = Sprite (*AssetsManager::getSprite(sq_dark_gray));
-
-    emptySpace.setPosition(0, 0);
-    emptySpace.setSize(WIN_W, WIN_H);
 };
 
 game::~game()
@@ -158,7 +170,7 @@ void game::render()
     SDL_RenderClear(game::renderer.get());
 
     // empty space
-    emptySpace.render();
+    //emptySpace.render();
     // game board
     componentsMap::renderComponets();
 

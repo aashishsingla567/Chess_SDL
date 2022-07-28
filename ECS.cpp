@@ -62,10 +62,6 @@ std::unordered_map<int, vectorIt> componentsMap::componentsMapIter_;
 
 void componentsMap::addCompoenent(int typeId, int componentId, std::shared_ptr<Component> component)
 {
-	std::cout << "Component Added "
-			  << "ComponentId :: " << componentId
-			  << " TypeId :: " << typeId
-			  << std::endl;
 	components_[typeId].push_back(component);
 	componentsMapIter_[componentId] = components_[typeId].size() - 1;
 }
