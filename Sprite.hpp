@@ -1,6 +1,6 @@
 #pragma once
 
-#include "game.hpp"
+#include "Game.hpp"
 #include "imageObject.hpp"
 #include "ECS.hpp"
 

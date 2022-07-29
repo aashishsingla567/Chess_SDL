@@ -4,6 +4,7 @@
 #include "board.hpp"
 #include "AssetsManager.hpp"
 #include "TextureHandler.hpp"
+#include "EventsHandler.h"
 
 std::unordered_map<int, std::shared_ptr<Piece>> board::piecesMap;
 std::array<std::array<std::shared_ptr<Tile>, board::COLS>, board::ROWS> board::background;
@@ -217,4 +218,30 @@ void board::init() {
 	piecesMap.reserve(total_pieces);
 	makeBackground();
 	makeMap();
+}
+
+point board::getPosOnWindow(point pos) {
+	return {
+		pos.x * board::WIDTH / ROWS + LEFT_MARGIN,
+		pos.y * board::HEIGHT / COLS + TOP_MARGIN
+	};
+}
+
+void board::mouseDetection() {
+	static const auto& gray = AssetsManager::getImg(sq_light_gray);
+	static const auto& black = AssetsManager::getImg(sq_dark_brown);
+	static const auto& white = AssetsManager::getImg(sq_light_brown);
+	
+	auto [j, i] = MousePosition::getPosOnBoard();
+	static point last = {i, j};
+	
+	int last_color = background[last.x][last.y]->getColor();
+	
+	auto tileImg = white;
+	if (last_color == COLOR::BLACK) {
+		tileImg = black;
+	}
+	background[last.x][last.y]->getComponent<Sprite>().setImage(tileImg);
+	background[i][j]->getComponent<Sprite>().setImage(gray);
+	last = { i, j };
 }

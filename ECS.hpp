@@ -1,7 +1,7 @@
 // entity component system
 
 #pragma once
-#include "game.hpp"
+#include "Game.hpp"
 
 // class Entity;
 class Component;
@@ -90,30 +90,20 @@ class Component
 {
 protected:
 	std::shared_ptr<Entity> entity_;
-	int typeId_;
 	int componentId_;
 	static int componentIdGen_;
-
 public:
-	Component() = default;
-	// Component(std::shared_ptr<Entity> entity);
 
 	// a component cannot be initialize without an entity
 	template <typename compT>
 	void init(std::shared_ptr<Entity> entity) {
 		this->entity_ = (entity);
-		this->typeId_ = (typeId<compT>());
 		this->componentId_ = (componentIdGen_++);
 	}
 
 	virtual ~Component()  = 0;
 	virtual void render() = 0;
 	virtual void update() = 0;
-
-	inline int getTypeId() const
-	{
-		return typeId_;
-	}
 
 	inline int getComponentId() const
 	{

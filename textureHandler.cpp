@@ -25,7 +25,7 @@ std::unique_ptr <Image> TextureHandler::loadTexture(const char* path) {
             {0, 0, surface->w, surface->h}, // full Image size
             sdl::make_shared <SDL_Texture> (
                 SDL_CreateTextureFromSurface(
-                    game::renderer.get(),
+                    Game::renderer.get(),
                     surface.get ()
                 )
             )

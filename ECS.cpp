@@ -45,8 +45,9 @@ void Entity::revive()
 
 // components 
 int Component::componentIdGen_ = 0;
+ //Component::Component () = default;
+ Component::~Component() = default;
 
-Component::~Component() = default;
 // template fucntions are in the header ( as they cannot be exposed to linker )
 
 // components map

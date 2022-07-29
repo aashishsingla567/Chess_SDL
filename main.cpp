@@ -1,22 +1,23 @@
 // This is a personal academic project. Dear PVS-Studio, please check it.
 
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
-#include "game.hpp"
+#include "Game.hpp"
 
-constexpr int WIN_W = 704, WIN_H = 640;
+
+// constexpr int WIN_W = 704, WIN_H = 640; // in the hpp file
 
 int main ( int argc, char* argv[] ) {
 
     using namespace std; // PLEASE DON'T USE OUTSIDE ANYWHERE !!!
 
-    game thisGame = game (
+    Game thisGame = Game (
         "CHESS",
         {SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED},
         {WIN_W, WIN_H},
         false
     );
 
-    constexpr int FPS = 10;
+    constexpr int FPS = 60;
     constexpr int frameDelay = 1000 / FPS;
 
     Uint32 frameStart;
@@ -25,7 +26,7 @@ int main ( int argc, char* argv[] ) {
     while ( thisGame.isRunning ( ) ) {
         frameStart = SDL_GetTicks();
         
-        thisGame.handleEvents ( );
+        thisGame.handleEvents( );
         thisGame.update ( );
         thisGame.render ( );
 

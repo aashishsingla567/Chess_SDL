@@ -1,12 +1,13 @@
 // This is a personal academic project. Dear PVS-Studio, please check it.
 
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
-#include "game.hpp"
+#include "Game.hpp"
 #include "Sprite.hpp"
 #include "TextureHandler.hpp"
 #include "AssetsManager.hpp"
 #include "ECS.hpp"
 #include "board.hpp"
+#include "EventsHandler.h"
 
 constexpr bool IS_ON = true;
 constexpr bool IS_OFF = false;
@@ -16,14 +17,15 @@ constexpr bool IS_OFF = false;
 constexpr char SEPERATOR_STR[] =
     "-------------------------------------\n";
 
-sdl::shared_ptr<SDL_Window> game::window = nullptr;
-sdl::shared_ptr<SDL_Renderer> game::renderer = nullptr;
-SDL_Event game::event;
+sdl::shared_ptr<SDL_Window> Game::window = nullptr;
+sdl::shared_ptr<SDL_Renderer> Game::renderer = nullptr;
+SDL_Event Game::Event;
 
-constexpr int WIN_W = 704, WIN_H = 640;  // window size
-static Entity emptySpace;
+ // constexpr int WIN_W = 704, WIN_H = 640;  // in hpp file 
 
-const bool game::init()
+static Entity windowEntity;
+
+const bool Game::init()
 {
 
     using namespace std;
@@ -57,7 +59,7 @@ const bool game::init()
     return true;
 }
 
-game::game(
+Game::Game(
     const std::string &windowName,
     const std::pair<int, int> &windowPos,
     const std::pair<int, int> &windowSize,
@@ -82,15 +84,17 @@ game::game(
         return;
     }
 
-    auto flags = ((fullscreen) ? SDL_WINDOW_FULLSCREEN : 0);
+    auto flags = ((fullscreen) ? SDL_WINDOW_FULLSCREEN : 0) | SDL_WINDOW_ALLOW_HIGHDPI;
 
     // ---------- create window -------------
     this->window =
-        sdl::make_shared(SDL_CreateWindow(
-            windowName.c_str(), // name of the application window
-            xPos, yPos,         // x, y COORDs of the window on screen
-            WIDTH, HEIGHT,      // size of the window
-            flags));
+        sdl::make_shared(SDL_CreateWindow (
+            windowName.c_str(),
+            xPos,  yPos,         
+            WIDTH, HEIGHT,      
+            flags
+        )
+    );
 
     if (this->window == nullptr)
     {
@@ -129,53 +133,53 @@ game::game(
 	
     AssetsManager::init();
 	
-    emptySpace.addComponent <Sprite>( std::make_shared <Sprite> (
+    windowEntity.addComponent <Sprite>( std::make_shared <Sprite> (
         Sprite (
 			    {0, 0, WIN_W, WIN_H},
 			    AssetsManager::getImg (sq_dark_gray),
-			    std::make_shared <Entity> (emptySpace)
+			    std::make_shared <Entity> (windowEntity)
             )
         )
     );
     board::init();
 };
 
-game::~game()
+Game::~Game()
 {
 #if DEBUG_MODE == IS_ON
-    std::cout << "Destroying the game. Please wait while we free your memory." << std::endl;
+    std::cout << "Destroying the Game. Please wait while we free your memory." << std::endl;
 #endif // DEBUG_MODE
     SDL_Quit();
     return;
 }
 
-void game::handleEvents()
+void Game::handleEvents()
 {
-    SDL_PollEvent(&event);
+    SDL_PollEvent(&Event);
 
-    switch (event.type)
+    switch (Event.type)
     {
     case SDL_QUIT:
         isPlaying = false;
         return;
-    default:
-        return;
     }
+    EventsHandler::update();
+    board::mouseDetection();
 }
 
-void game::update()
+void Game::update()
 {
     componentsMap::updateComponets();
 }
 
-void game::render()
+void Game::render()
 {
-    SDL_RenderClear(game::renderer.get());
+    SDL_RenderClear(Game::renderer.get());
 
     // empty space
-    //emptySpace.render();
-    // game board
+    //windowEntity.render();
+    // Game board
     componentsMap::renderComponets();
 
-    SDL_RenderPresent(game::renderer.get());
+    SDL_RenderPresent(Game::renderer.get());
 }

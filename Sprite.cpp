@@ -48,7 +48,7 @@ Sprite::Sprite(
 // render
 void Sprite::render() {
 	SDL_RenderCopy(
-		game::renderer.get ( ),
+		Game::renderer.get ( ),
 		&this->img->getTexture(),
 		&this->img->size,
 		&this->position

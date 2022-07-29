@@ -1,12 +1,8 @@
 #pragma once
 
-#include "game.hpp"
+#include "Game.hpp"
 #include "Sprite.hpp"
-#include "gameEntities.hpp"
-
-struct point{
-	int x, y;
-};
+#include "GameEntities.hpp"
 
 enum PIECE_NAMES {
 
@@ -31,25 +27,36 @@ public:
 	constexpr static int ROWS = 8;
 	constexpr static int COLS = 8;
 
-	constexpr static int TILE_SIZE = 64;						// Side of the Tile tile
+
+	constexpr static int TILE_SIZE = 86;						// Side of the Tile tile
+	constexpr static int WIDTH = TILE_SIZE * ROWS;
+	constexpr static int HEIGHT = TILE_SIZE * ROWS;
 	
 	constexpr static int piece_shift_origin = (double)TILE_SIZE / 8;	// amount to center each piece
-	constexpr static int PIECE_SIZE = 3 * (double)TILE_SIZE / 4;		// reduced size of each piece 
+	constexpr static int PIECE_SIZE = 64;	// (3/4 * tile)	// reduced size of each piece 
 																// (w.r.t. to TILE_SIZE)
 	
 	
 	constexpr static int total_pieces = 16;					// total number of pieces on the board
 	constexpr static int total_tiles = ROWS*COLS;			// total number of tiles on the board
 	
+	constexpr static int LEFT_MARGIN = 0*TILE_SIZE;
+	constexpr static int TOP_MARGIN = 0*TILE_SIZE;
+
+	constexpr static int RIGHT_MARGIN = WIN_W - LEFT_MARGIN - board::WIDTH;
+	constexpr static int BOTTOM_MARGIN = WIN_H - TOP_MARGIN - board::HEIGHT;
+
 	constexpr static point start = {				/// position of the board on the window
-		board::TILE_SIZE * 3, // x
-		board::TILE_SIZE * 2  // y
+		LEFT_MARGIN,
+		TOP_MARGIN
 	};
 public:
 	static std::unordered_map < int, std::shared_ptr <Piece> > piecesMap;
 	static std::array < std::array < std::shared_ptr <Tile>, COLS >, ROWS > background;
 	static void init();
+	static void mouseDetection();
 private:
 	static void makeBackground();
 	static void makeMap();
+	static point getPosOnWindow(point pos);
 };

@@ -29,7 +29,13 @@
 // CUSTOM
 #include "SDL_memory.h"
 
-class game
+
+struct point {
+    int x, y;
+};
+
+constexpr int WIN_W = 683, WIN_H = 683;
+class Game
 {
 private: // all the stuff in the initializer list
     bool isPlaying;
@@ -42,15 +48,15 @@ private: // basic UI stuff
 public:
     static sdl::shared_ptr<SDL_Window> window;
     static sdl::shared_ptr<SDL_Renderer> renderer;
-    static SDL_Event event;
+    static SDL_Event Event;
 
 public:
-    game(
+    Game(
         const std::string &windowName,
         const std::pair<int, int> &windowPos = {SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED},
         const std::pair<int, int> &windowSize = {800, 600},
         bool fullscreen = false);
-    ~game();
+    ~Game();
 
     const bool init();
     void update();

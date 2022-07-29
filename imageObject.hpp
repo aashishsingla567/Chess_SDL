@@ -1,6 +1,6 @@
 #pragma once
 
-#include "game.hpp"
+#include "Game.hpp"
 
 class Image {
 	// an Image cannot be changed after construction

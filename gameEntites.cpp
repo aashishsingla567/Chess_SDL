@@ -1,7 +1,7 @@
 // This is a personal academic project. Dear PVS-Studio, please check it.
 
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
-#include "gameEntities.hpp"
+#include "GameEntities.hpp"
 #include "TextureHandler.hpp"
 
 // TODO :: make all the methods in the above classes
