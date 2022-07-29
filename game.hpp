@@ -24,7 +24,7 @@
 
 // SDL
 #include "SDL.h"
-#include "SDL_image.h"
+#include "SDL_Image.h"
 
 // CUSTOM
 #include "SDL_memory.h"

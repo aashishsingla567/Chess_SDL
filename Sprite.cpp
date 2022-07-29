@@ -6,60 +6,56 @@
 
 // constructor
 Sprite::Sprite(
-    const sdl::shared_ptr<SDL_Texture>& tex, 
-    const SDL_Rect& srcRect, 
-    const SDL_Rect& destRect 
-) :
-    texture(tex),
-    srcRect(srcRect),
-    destRect(destRect) 
-{};
-
-
-// move constructor
-Sprite::Sprite(Sprite&& obj) noexcept :
-    texture(obj.texture),
-    srcRect(obj.srcRect),
-    destRect(obj.destRect)
-{};
-
-// copy constructor
-Sprite::Sprite(const Sprite& obj) :
-	texture(obj.texture),
-	srcRect(obj.srcRect),
-	destRect(obj.destRect)
-{
-	if (obj.getEntity() != nullptr)
-		this->init <Sprite>(obj.getEntity());
+	SDL_Rect dest,
+	std::shared_ptr <Image> img,
+	std::shared_ptr <Entity> entity
+) {
+	this->img = img;
+	this->position = dest;
+	init <Sprite>(entity);
 };
 
-// sprite copy assignment constructor
-Sprite& Sprite::operator=(const Sprite& obj) {
-	texture = obj.texture;
-	srcRect = obj.srcRect;
-	destRect = obj.destRect;
-	return *this;
-}
-
-// sprite move assignment constructor
-Sprite& Sprite::operator=(Sprite&& obj) noexcept {
-	texture = obj.texture;
-	srcRect = obj.srcRect;
-	destRect = obj.destRect;
-	return *this;
-}
+/// consturctors & assigners
+//// move constructor
+//Sprite::Sprite (Sprite&& obj) :
+//
+//// copy constructor
+//Sprite::Sprite(const Sprite& obj) :
+//	texture(obj.texture),
+//	srcRect(obj.srcRect),
+//	position(obj.position)
+//{
+//	if (obj.getEntity() != nullptr)
+//		this->init <Sprite>(obj.getEntity());
+//};
+//
+//// sprite copy assignment constructor
+//Sprite& Sprite::operator=(const Sprite& obj) {
+//	texture = obj.texture;
+//	srcRect = obj.srcRect;
+//	position = obj.position;
+//	return *this;
+//}
+//
+//// sprite move assignment constructor
+//Sprite& Sprite::operator=(Sprite&& obj) noexcept {
+//	texture = obj.texture;
+//	srcRect = obj.srcRect;
+//	position = obj.position;
+//	return *this;
+//}
 
 // render
 void Sprite::render() {
 	SDL_RenderCopy(
 		game::renderer.get ( ),
-		texture.get( ),
-		&srcRect,
-		&destRect
+		&this->img->getTexture(),
+		&this->img->size,
+		&this->position
 	);
 }
 
 // set texture
-void Sprite::setTexture(const sdl::shared_ptr<SDL_Texture>& tex) {
-	texture = tex;
+void Sprite::setImage (std::shared_ptr <Image> img) {
+	this->img = img;
 }

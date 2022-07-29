@@ -4,42 +4,35 @@
 #include "Sprite.hpp"
 #include "ECS.hpp"
 
+enum COLOR {
+	BLACK = 0,
+	WHITE
+};
+
 class Tile;
 
 class Tile : public Entity {
+	const int color;
+	const SDL_Rect position;
+	const std::shared_ptr <Image> img;
 public:
-	// tile consturctor
-	void init (
-		int x, 
-		int y, 
-		int w, 
-		int h, 
-		std::shared_ptr <Sprite> uSprite
-	);
+	Tile(int color, SDL_Rect position, std::shared_ptr <Image> img);
+	~Tile();
+	int getColor();
+	SDL_Rect getPosition();
+	std::shared_ptr <Image> getImg();
 };
 
 class Piece : public Entity {
-public:
-	enum COLOR {
-		BLACK,
-		WHITE
-	};
 private:
-	int color;
-	int name;
+	const int color;
+	const int name;
+	const std::shared_ptr <Image> img;
 public:
-	void init(
-		std::shared_ptr <Sprite> uSprite,
-		int x,
-		int y,
-		int w,
-		int h,
-		int name,
-		int color
-	);
-
-	// get sprite
-	std::shared_ptr <Sprite> getSprite() {
-		return std::make_shared <Sprite>(this->getComponent <Sprite>());
-	}
+	Piece(const int color, const int name, const std::shared_ptr <Image> img);
+	~Piece();
+	int getColor();
+	int getName();
+	std::shared_ptr <Image> getImg();
 };
+

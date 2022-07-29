@@ -27,99 +27,95 @@
 //	w_rook,
 //};
 
-AssetsManager::SpritesMap AssetsManager::Sprites;
+AssetsManager::ImagesMap AssetsManager::Images;
 AssetsManager::soundsMap AssetsManager::sounds;
 
 void AssetsManager::init ( ) {
 	using namespace std;
 	cout << "Loading Assets... " << endl;
 
-	Sprites.map.reserve(board::total_pieces);
+	Images.map.reserve(board::total_pieces);
 	
-	// This map contians unitialized Sprite Components
-	// It is used to initialize the sprites in the game
-	// Unitialized sprites are not drawn in the game by the componentsMap
-	// but can be drawn if called explicitly
 	
-	Sprites.map [sq_dark_brown] =
+	Images.map [sq_dark_brown] =
 		TextureHandler::loadTexture
-		( "./assets/PNGs/With Shadow/128h/square brown dark_png_shadow_128px.png" );
+		( "./assets/PNGs/With Shadow/1024px/square brown dark_png_shadow_1024px.png" );
 
-	Sprites.map [sq_light_brown] =
+	Images.map [sq_light_brown] =
 		TextureHandler::loadTexture
-		( "./assets/PNGs/With Shadow/128h/square brown light_png_shadow_128px.png" );
+		( "./assets/PNGs/With Shadow/1024px/square brown light_png_shadow_1024px.png" );
 
-	Sprites.map [sq_dark_gray] =
+	Images.map [sq_dark_gray] =
 		TextureHandler::loadTexture
-		( "./assets/PNGs/With Shadow/128h/square gray dark _png_shadow_128px.png" );
+		( "./assets/PNGs/With Shadow/1024px/square gray dark _png_shadow_1024px.png" );
 
-	Sprites.map [sq_light_gray] =
+	Images.map [sq_light_gray] =
 		TextureHandler::loadTexture
-		( "./assets/PNGs/With Shadow/128h/square gray light _png_shadow_128px.png" );
+		( "./assets/PNGs/With Shadow/1024px/square gray light _png_shadow_1024px.png" );
 
-	Sprites.map [b_bishop] =
+	Images.map [b_bishop] =
 		TextureHandler::loadTexture
-		( "./assets/PNGs/With Shadow/128h/b_bishop_png_shadow_128px.png" );
+		( "./assets/PNGs/With Shadow/1024px/b_bishop_png_shadow_1024px.png" );
 	
-	Sprites.map [b_king] =
+	Images.map [b_king] =
 		TextureHandler::loadTexture
-		( "./assets/PNGs/With Shadow/128h/b_king_png_shadow_128px.png" );
+		( "./assets/PNGs/With Shadow/1024px/b_king_png_shadow_1024px.png" );
 	
-	Sprites.map [b_knight] =
+	Images.map [b_knight] =
 		TextureHandler::loadTexture
-		( "./assets/PNGs/With Shadow/128h/b_knight_png_shadow_128px.png" );
+		( "./assets/PNGs/With Shadow/1024px/b_knight_png_shadow_1024px.png" );
 	
-	Sprites.map [b_pawn] =
+	Images.map [b_pawn] =
 		TextureHandler::loadTexture
-		( "./assets/PNGs/With Shadow/128h/b_pawn_png_shadow_128px.png" );
+		( "./assets/PNGs/With Shadow/1024px/b_pawn_png_shadow_1024px.png" );
 	
-	Sprites.map [b_queen] =
+	Images.map [b_queen] =
 		TextureHandler::loadTexture
-		( "./assets/PNGs/With Shadow/128h/b_queen_png_shadow_128px.png" );
+		( "./assets/PNGs/With Shadow/1024px/b_queen_png_shadow_1024px.png" );
 	
-	Sprites.map [b_rook] =
+	Images.map [b_rook] =
 		TextureHandler::loadTexture
-		( "./assets/PNGs/With Shadow/128h/b_rook_png_shadow_128px.png" );
-	Sprites.map [w_bishop] =
+		( "./assets/PNGs/With Shadow/1024px/b_rook_png_shadow_1024px.png" );
+	Images.map [w_bishop] =
 		TextureHandler::loadTexture
-		( "./assets/PNGs/With Shadow/128h/w_bishop_png_shadow_128px.png" );
+		( "./assets/PNGs/With Shadow/1024px/w_bishop_png_shadow_1024px.png" );
 	
-	Sprites.map [w_king] =
+	Images.map [w_king] =
 		TextureHandler::loadTexture
-		( "./assets/PNGs/With Shadow/128h/w_king_png_shadow_128px.png" );
+		( "./assets/PNGs/With Shadow/1024px/w_king_png_shadow_1024px.png" );
 	
-	Sprites.map [w_knight] =
+	Images.map [w_knight] =
 		TextureHandler::loadTexture
-		( "./assets/PNGs/With Shadow/128h/w_knight_png_shadow_128px.png" );
+		( "./assets/PNGs/With Shadow/1024px/w_knight_png_shadow_1024px.png" );
 	
-	Sprites.map [w_pawn] =
+	Images.map [w_pawn] =
 		TextureHandler::loadTexture
-		( "./assets/PNGs/With Shadow/128h/w_pawn_png_shadow_128px.png" );
+		( "./assets/PNGs/With Shadow/1024px/w_pawn_png_shadow_1024px.png" );
 	
-	Sprites.map [w_queen] =
+	Images.map [w_queen] =
 		TextureHandler::loadTexture
-		( "./assets/PNGs/With Shadow/128h/w_queen_png_shadow_128px.png" );
+		( "./assets/PNGs/With Shadow/1024px/w_queen_png_shadow_1024px.png" );
 	
-	Sprites.map [w_rook] =
+	Images.map [w_rook] =
 		TextureHandler::loadTexture
-		( "./assets/PNGs/With Shadow/128h/w_rook_png_shadow_128px.png" );
+		( "./assets/PNGs/With Shadow/1024px/w_rook_png_shadow_1024px.png" );
 
 	// debug
 	{
 		int fail = 0, success = 0;
-		for (const auto& [name, sprite] : Sprites.map) {
+		for (const auto& [name, sprite] : Images.map) {
 			if (sprite.get() == nullptr) {
 				fail++;
 			}
 			else success++;
 		}
-		std::cout << Sprites.map.size() << " Sprites initiallized to load" << std::endl;
-		std::cout << fail << " Sprites failed to load " << std::endl;
-		std::cout << success << " Sprites successfully loaded" << std::endl;
+		std::cout << Images.map.size() << " Images initiallized to load" << std::endl;
+		std::cout << fail << " Images failed to load " << std::endl;
+		std::cout << success << " Images successfully loaded" << std::endl;
 	}
 }
 
 // get texture
-std::shared_ptr <Sprite> AssetsManager::getSprite (int name) {
-	return Sprites.map[name];
+std::shared_ptr <Image> AssetsManager::getImg (int name) {
+	return Images.map[name];
 }

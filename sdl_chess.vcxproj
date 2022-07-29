@@ -124,6 +124,7 @@
     <ClInclude Include="game.hpp" />
     <ClInclude Include="AssetsManager.hpp" />
     <ClInclude Include="gameEntities.hpp" />
+    <ClInclude Include="imageObject.hpp" />
     <ClInclude Include="Sprite.hpp" />
     <ClInclude Include="SDL_memory.h" />
     <ClInclude Include="TextureHandler.hpp" />

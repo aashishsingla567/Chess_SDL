@@ -65,6 +65,9 @@
     <ClInclude Include="gameEntities.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="imageObject.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\chess pieces 5.ai">

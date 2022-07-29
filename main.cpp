@@ -37,7 +37,7 @@ int main ( int argc, char* argv[] ) {
     }
     
     if (!std::string(SDL_GetError()).empty()) {
-        std::cout << "Program ended due to this error, ERROR :: " << SDL_GetError() << std::endl;
+        throw std::runtime_error(SDL_GetError());
         return EXIT_FAILURE;
     }
     

@@ -4,41 +4,61 @@
 #include "gameEntities.hpp"
 #include "TextureHandler.hpp"
 
-extern int typeIdGen();
+// TODO :: make all the methods in the above classes
 
-template <typename T> 
-extern int typeId();
-
-// Tile
-// Tile consturctor
-void Tile::
-init (int x, int y, int w, int h, std::shared_ptr <Sprite> uSprite) {
-	Sprite iSprite = *uSprite;
-	iSprite.init <Sprite> (std::make_shared<Tile> (*this));
-	iSprite.setPosition(x, y);
-	iSprite.setSize(w, h);
-	iSprite = this->addComponent <Sprite>(std::make_shared <Sprite> (iSprite));
+// Tile constructor
+Tile::Tile (
+	int color, 
+	SDL_Rect position, 
+	std::shared_ptr <Image> img) 
+	: color(color), position(position), img(img) {
 }
-// Piece
 
-void Piece::init(
-	std::shared_ptr <Sprite> uSprite,
-	int x,
-	int y,
-	int w,
-	int h,
-	int name,
-	int color
-) {
-	// copy
-	// init
-	// set
-	// add
-	Sprite iSprite = *uSprite;
-	iSprite.init <Sprite>(std::make_shared<Piece> (*this));
-	iSprite.setPosition(x, y);
-	iSprite.setSize(w, h);
-	this->addComponent<Sprite>(std::make_shared <Sprite> (iSprite));
-	this->color = color;
-	this->name = name;
+// Tile destructor
+Tile::~Tile() {
+}
+
+// getColor method
+int Tile::getColor() {
+	return color;
+}
+
+// getPosition method
+SDL_Rect Tile::getPosition() {
+	return position;
+}
+
+// getImg method
+std::shared_ptr<Image> Tile::getImg() {
+	return img;
+}
+
+// Piece constructor
+Piece::Piece(
+	const int color,
+	const int name,
+	const std::shared_ptr <Image> img) 
+	:
+	color(color),
+	name(name),
+	img(img) 
+{};
+
+// Piece destructor
+Piece::~Piece() {
+}
+
+// getColor method
+int Piece::getColor() {
+	return color;
+}
+
+// getName method
+int Piece::getName() {
+	return name;
+}
+
+// getImg method
+std::shared_ptr<Image> Piece::getImg() {
+	return img;
 }

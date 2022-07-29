@@ -41,12 +41,12 @@ const bool game::init()
         return false;
     }
 
-    // SDL_image
+    // SDL_Image
     if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG))
     {
 
 #if DEBUG_MODE == IS_ON
-        cout << "Failed to initialize SDL_image for PNG, ERROR :: " << IMG_GetError() << endl;
+        cout << "Failed to initialize SDL_Image for PNG, ERROR :: " << IMG_GetError() << endl;
 #endif // DEBUG_MODE
         return false;
     }
@@ -128,12 +128,15 @@ game::game(
     ***************************************************************************/
 	
     AssetsManager::init();
-    auto emptySpaceSprite = Sprite (*AssetsManager::getSprite(sq_dark_gray));
-
-    emptySpaceSprite.setPosition(0, 0);
-    emptySpaceSprite.setSize(WIN_W, WIN_H);
 	
-	emptySpace.addComponent<Sprite>(std::make_shared <Sprite> (emptySpaceSprite));
+    emptySpace.addComponent <Sprite>( std::make_shared <Sprite> (
+        Sprite (
+			    {0, 0, WIN_W, WIN_H},
+			    AssetsManager::getImg (sq_dark_gray),
+			    std::make_shared <Entity> (emptySpace)
+            )
+        )
+    );
     board::init();
 };
 
