@@ -1,9 +1,9 @@
 #include "EventsHandler.h"
 #include "board.hpp"
 // MousePosition
-point MousePosition::m_pos;
+Point2d MousePosition::m_pos;
 
-inline void Print(const point& data) {
+inline void Print(const Point2d& data) {
 	std::cout << "x :: " << data.x << " y :: " << data.y << '\n';
 }
 
@@ -12,11 +12,11 @@ void MousePosition::update() {
 		SDL_GetMouseState(&m_pos.x, &m_pos.y);
 	}
 }
-// static point getPosOnBoard();
-point MousePosition::getPosOnBoard() {
+// static Point2d getPosOnBoard();
+Point2d MousePosition::getPosOnBoard() {
 	return {
 		int ( double (m_pos.x - board::LEFT_MARGIN) * board::ROWS / double (board::WIDTH) ),
-		int ( double (m_pos.y - board::TOP_MARGIN) * board::COLS / double (board::HEIGHT) )
+		int ( double (m_pos.y - board::TOP_MARGIN)  * board::COLS / double (board::HEIGHT) )
 	};
 }
 

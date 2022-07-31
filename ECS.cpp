@@ -36,7 +36,7 @@ void Entity::revive()
 	for (const auto &pair : myComponents_)
 	{
 		componentsMap::addCompoenent(
-			pair.first,					   // typeId
+			pair.first,					   // compTypeId
 			pair.second->getComponentId(), // componentId
 			pair.second					   // Component
 		);
@@ -61,18 +61,18 @@ std::unordered_map<
 using vectorIt = size_t;
 std::unordered_map<int, vectorIt> componentsMap::componentsMapIter_;
 
-void componentsMap::addCompoenent(int typeId, int componentId, std::shared_ptr<Component> component)
+void componentsMap::addCompoenent(int compTypeId, int componentId, std::shared_ptr<Component> component)
 {
-	components_[typeId].push_back(component);
-	componentsMapIter_[componentId] = components_[typeId].size() - 1;
+	components_[compTypeId].push_back(component);
+	componentsMapIter_[componentId] = components_[compTypeId].size() - 1;
 }
 
-void componentsMap::removeComponent(int typeId, int componentId)
+void componentsMap::removeComponent(int compTypeId, int componentId)
 {
 	auto it_it = componentsMapIter_.find(componentId);
 	if (it_it == componentsMapIter_.end())
 		return;
-	auto vec_it = components_.find(typeId);
+	auto vec_it = components_.find(compTypeId);
 	if (vec_it == components_.end())
 		return;
 
@@ -84,7 +84,7 @@ void componentsMap::removeComponent(int typeId, int componentId)
 
 	std::cout << "Component Removed "
 			  << "ComponentId :: " << componentId
-			  << " TypeId :: " << typeId
+			  << " TypeId :: " << compTypeId
 			  << std::endl;
 }
 

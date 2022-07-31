@@ -30,8 +30,13 @@
 #include "SDL_memory.h"
 
 
-struct point {
+struct Point2d {
     int x, y;
+};
+
+struct Rect {
+    int x, y;
+    int w, h;
 };
 
 constexpr int WIN_W = 683, WIN_H = 683;
@@ -78,5 +83,9 @@ public:
         return isPlaying;
     };
 };
+
+//
+//void* operator new (size_t size);
+//void operator delete (void* ptr, size_t size);
 
 #endif // GAME_HPP_INCLUDED

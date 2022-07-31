@@ -17,6 +17,24 @@ constexpr bool IS_OFF = false;
 constexpr char SEPERATOR_STR[] =
     "-------------------------------------\n";
 
+static size_t total_mem = 0;
+//
+//// make custom new for debuging
+//void* operator new (size_t size) {
+//    total_mem += size;
+//    std::cout << "Allocating " << size << " bytes" << std::endl;
+//    return malloc(size);
+//}
+//
+//// make custom delete for debuging
+//void operator delete (void* ptr, size_t size) {
+//    total_mem -= size;
+//    std::cout << "Deallocating " << size << " bytes" << std::endl;
+//    std::cout << "Total Mem " << total_mem << std::endl;
+//    free(ptr);
+//}
+
+
 sdl::shared_ptr<SDL_Window> Game::window = nullptr;
 sdl::shared_ptr<SDL_Renderer> Game::renderer = nullptr;
 SDL_Event Game::Event;
@@ -63,16 +81,16 @@ Game::Game(
     const std::string &windowName,
     const std::pair<int, int> &windowPos,
     const std::pair<int, int> &windowSize,
-    bool fullscreen) :
+    bool fullscreen
+) :
 
-                       isPlaying(true),
-                       xPos(windowPos.first),
-                       yPos(windowPos.second),
-                       WIDTH(windowSize.first),
-                       HEIGHT(windowSize.second)
-{
+    isPlaying(true),
+    xPos(windowPos.first),
+    yPos(windowPos.second),
+    WIDTH(windowSize.first),
+    HEIGHT(windowSize.second) {
 
-    using namespace std;
+    using namespace std;  // DON'T USE OUTSIDE // only for debug
 
     if (init() == false)
     {
@@ -155,7 +173,7 @@ Game::~Game()
 
 void Game::handleEvents()
 {
-    SDL_PollEvent(&Event);
+    SDL_WaitEvent(&Event);
 
     switch (Event.type)
     {

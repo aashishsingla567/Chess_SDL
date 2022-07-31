@@ -6,8 +6,11 @@
 #include "TextureHandler.hpp"
 #include "EventsHandler.h"
 
-std::unordered_map<int, std::shared_ptr<Piece>> board::piecesMap;
-std::array<std::array<std::shared_ptr<Tile>, board::COLS>, board::ROWS> board::background;
+#include <assert.h>
+
+std::unordered_map< int, std::shared_ptr<Piece> > board::piecesMap;
+std::array< std::shared_ptr <Piece>, 16 > pieces;
+std::array< std::array< std::shared_ptr<Tile>, board::COLS >, board::ROWS > board::background;
 
 static std::shared_ptr<Piece> generatePeice(
 	int xPos,
@@ -20,16 +23,17 @@ static std::shared_ptr<Piece> generatePeice(
 		Piece(
 			color,
 			pieceName,
+			{ board::start.x + board::piece_shift.x + xPos,
+				board::start.y + board::piece_shift.y + yPos,
+				board::PIECE_SIZE,
+				board::PIECE_SIZE
+			},
 			AssetsManager::getImg(imgName)
 		)
 	);
 	piece->addComponent <Sprite>(std::make_shared <Sprite>(
 			Sprite(
-				{	board::start.x + board::piece_shift_origin + xPos,
-					board::start.y + board::piece_shift_origin + yPos,
-					board::PIECE_SIZE,
-					board::PIECE_SIZE
-				},
+				piece->getPosition(),
 				piece->getImg (),
 				piece
 			)
@@ -214,10 +218,20 @@ void board::makeMap()
 	
 };
 
+void board::associatePiecesWithTiles() {
+	for (int i = PIECE_NAMES::b_rook1; i <= PIECE_NAMES::b_pawn8; ++i) {
+		background[i / 8][i % 8]->putPiece (piecesMap[i]);
+	}
+	for (int i = PIECE_NAMES::w_pawn1; i <= PIECE_NAMES::w_rook2; ++i) {
+		background[i / 8 + 4][i % 8]->putPiece (piecesMap[i]); // 4 = 5 - 1
+	}
+}
+
 void board::init() {
 	piecesMap.reserve(total_pieces);
 	makeBackground();
 	makeMap();
+	associatePiecesWithTiles();
 }
 
 point board::getPosOnWindow(point pos) {
@@ -227,21 +241,20 @@ point board::getPosOnWindow(point pos) {
 	};
 }
 
+
 void board::mouseDetection() {
-	static const auto& gray = AssetsManager::getImg(sq_light_gray);
-	static const auto& black = AssetsManager::getImg(sq_dark_brown);
-	static const auto& white = AssetsManager::getImg(sq_light_brown);
+	static const auto& gray = AssetsManager::getImg(sq_dark_gray);
 	
 	auto [j, i] = MousePosition::getPosOnBoard();
-	static point last = {i, j};
+	assert (i < ROWS and j < COLS);
+
+	static auto  lastImg = background[i][j]->getImg();
+	static auto* lastSprite = &background[i][j]->getComponent<Sprite>();
 	
-	int last_color = background[last.x][last.y]->getColor();
-	
-	auto tileImg = white;
-	if (last_color == COLOR::BLACK) {
-		tileImg = black;
-	}
-	background[last.x][last.y]->getComponent<Sprite>().setImage(tileImg);
+	lastSprite->setImage(lastImg); // restore previous sprite
+
+	lastImg = background[i][j]->getImg(); // get this sprite's image
+	lastSprite = &background[i][j]->getComponent<Sprite>();
+
 	background[i][j]->getComponent<Sprite>().setImage(gray);
-	last = { i, j };
 }

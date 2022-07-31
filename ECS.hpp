@@ -2,17 +2,16 @@
 
 #pragma once
 #include "Game.hpp"
-
 // class Entity;
 class Component;
-
-// component type id genenrator
+class Event;
+// generate type Id for new type of Component
 int typeIdGen();
 // type id getter
 
-// get type id
+// get type id of Component
 template <typename T>
-int typeId()
+int compTypeId()
 {
 	// defined here becuse linker does not recognise template fucntions 
 	// that are not called in the same file
@@ -20,28 +19,32 @@ int typeId()
 	return id;
 }
 
+using CompType = int;
+using CompId = int;
+
 // type components map
 class componentsMap
 {
 private:
-	static std::unordered_map<int, std::vector<std::shared_ptr<Component>>> components_;
+	static std::unordered_map<CompType, std::vector<std::shared_ptr<Component>>> components_;
 	using vectorIt = size_t;
-	static std::unordered_map<int, vectorIt> componentsMapIter_;
+	static std::unordered_map<CompId, vectorIt> componentsMapIter_;
 
 public:
 	static void addCompoenent(
-		int typeId,
+		int compTypeId,
 		int componentId,
 		std::shared_ptr<Component> component
 	);
-	static void removeComponent(int typeId, int componentId);
+	static void removeComponent(int compTypeId, int componentId);
 	static void renderComponets();
 	static void updateComponets();
 };
 
+
 class Entity {
 protected:
-	std::unordered_map<int, std::shared_ptr<Component>> myComponents_;
+	std::unordered_map<CompType, std::shared_ptr<Component>> myComponents_;
 	bool isAlive_ = true;
 public:
 	Entity() = default;
@@ -51,18 +54,19 @@ public:
 	T& addComponent(std::shared_ptr<T> component)
 	{
 		componentsMap::addCompoenent(
-			typeId<T>(),
+			compTypeId<T>(),
 			component->getComponentId(),
 			component
 		);
-		myComponents_[typeId<T>()] = component;
+		myComponents_[compTypeId<T>()] = component;
 		return *component;
 	}
 
+	
 	template <typename T>
 	T& getComponent()
 	{
-		return *std::static_pointer_cast<T, Component>(myComponents_[typeId<T>()]);
+		return *std::static_pointer_cast<T, Component>(myComponents_[compTypeId<T>()]);
 	}
 
 	template <typename T>
@@ -70,10 +74,10 @@ public:
 	{
 		// disown the component
 		componentsMap::removeComponent(
-			typeId<T>(),
-			myComponents_[typeId<T>()]->getComponentId()
+			compTypeId<T>(),
+			myComponents_[compTypeId<T>()]->getComponentId()
 		);
-		myComponents_.erase(typeId<T>());
+		myComponents_.erase(compTypeId<T>());
 	}
 
 	void kill();
@@ -86,11 +90,10 @@ public:
 	}
 };
 
-class Component
-{
+class Component {
 protected:
 	std::shared_ptr<Entity> entity_;
-	int componentId_;
+	CompId componentId_;
 	static int componentIdGen_;
 public:
 

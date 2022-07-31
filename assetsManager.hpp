@@ -29,10 +29,10 @@ using sound = int; // ! CHANGE WHEN ADDING SOUNDS
 class AssetsManager {
 public:
 	typedef struct SpritesMap {
-		std::unordered_map < int, sdl::shared_ptr <Image> > map;
+		std::unordered_map < int, std::shared_ptr <Image> > map;
 	} ImagesMap;
 	typedef struct soundsMap {
-		std::unordered_map < int, sdl::shared_ptr <sound> > map;
+		std::unordered_map < int, std::shared_ptr <sound> > map;
 	} soundsMap;
 	static ImagesMap Images;
 	static soundsMap sounds;

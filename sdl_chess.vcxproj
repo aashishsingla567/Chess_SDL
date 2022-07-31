@@ -113,6 +113,7 @@
     <ClCompile Include="baord.cpp" />
     <ClCompile Include="ECS.cpp" />
     <ClCompile Include="EventsHandler.cpp" />
+    <ClCompile Include="EventsSystem.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="gameEntites.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -123,10 +124,12 @@
     <ClInclude Include="board.hpp" />
     <ClInclude Include="ECS.hpp" />
     <ClInclude Include="EventsHandler.h" />
+    <ClInclude Include="EventsSystem.h" />
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="AssetsManager.hpp" />
     <ClInclude Include="gameEntities.hpp" />
     <ClInclude Include="imageObject.hpp" />
+    <ClInclude Include="OrderedVector.h" />
     <ClInclude Include="Sprite.hpp" />
     <ClInclude Include="SDL_memory.h" />
     <ClInclude Include="TextureHandler.hpp" />

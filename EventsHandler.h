@@ -4,7 +4,7 @@
 
 class MousePosition{
 private:
-	static point m_pos;
+	static Point2d m_pos;
 private:
 	static inline bool isMouseEvent(Uint32 Event) {
 		return Event >= SDL_MOUSEMOTION && Event <= SDL_MOUSEWHEEL;
@@ -14,11 +14,11 @@ private:
 public:
 	static void update();
 	// get position
-	static point getPos() {
+	static Point2d getPos() {
 		return m_pos;
 	}
 	
-	static point getPosOnBoard();
+	static Point2d getPosOnBoard();
 };
 
 class EventsHandler {

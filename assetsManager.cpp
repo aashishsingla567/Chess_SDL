@@ -36,7 +36,6 @@ void AssetsManager::init ( ) {
 
 	Images.map.reserve(board::total_pieces);
 	
-	
 	Images.map [sq_dark_brown] =
 		TextureHandler::loadTexture
 		( "./assets/PNGs/With Shadow/1024px/square brown dark_png_shadow_1024px.png" );

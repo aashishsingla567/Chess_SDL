@@ -17,7 +17,7 @@ int main ( int argc, char* argv[] ) {
         false
     );
 
-    constexpr int FPS = 60;
+    constexpr int FPS = 120;
     constexpr int frameDelay = 1000 / FPS;
 
     Uint32 frameStart;
@@ -33,6 +33,7 @@ int main ( int argc, char* argv[] ) {
         frameTime = SDL_GetTicks() - frameStart;
 
         if (frameTime < frameDelay) {
+			//std::cout << "delay " << frameDelay - frameTime << '\n';
             SDL_Delay(frameDelay - frameTime);
         }
     }

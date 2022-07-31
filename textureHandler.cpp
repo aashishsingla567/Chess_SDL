@@ -18,7 +18,10 @@ std::unique_ptr <Image> TextureHandler::loadTexture(const char* path) {
 			": " + std::string(IMG_GetError())
 		);
 	}
-	
+
+    // imporove quality
+    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "2");
+
 	// create a new image from the loaded surface
     return std::make_unique <Image> (
         Image (
