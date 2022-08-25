@@ -19,10 +19,10 @@ public:
 		std::shared_ptr <Entity> entity
 	);
 	
-	//// spirte copy assignment constructor
+	//// spirte copy assignment
 	//Sprite& operator=(const Sprite& other);
 	//
-	//// sprite move assignment constructor
+	//// sprite move assignment
 	//Sprite& operator=(Sprite&& other) noexcept;
 
 	//Sprite(Sprite&& obj) noexcept;

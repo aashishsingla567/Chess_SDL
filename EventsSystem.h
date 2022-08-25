@@ -2,6 +2,67 @@
 
 #include "Game.hpp"
 #include "ECS.hpp"
+#include "RangeTree.h"
+
+using EventId = int;
+using EventTypeId = int;
+
+class Event;
+
+struct Size {
+	int width;
+	int height;
+};
+
+class EventsTree {
+private:
+	RangeTree < 
+		RangeTree < 
+			std::unordered_map < EventTypeId, std::shared_ptr <Event> >
+		> 
+	> m_tree;
+	Size m_windowSize;
+public:
+	EventsTree(Size windowSize) {
+		m_windowSize = windowSize;
+		m_tree = RangeTree < 
+			RangeTree < 
+				std::unordered_map <
+					EventTypeId, std::shared_ptr <Event> 
+				> 
+			> 
+		> (
+			windowSize.width, 
+			RangeTree < 
+					std::unordered_map < 
+						EventTypeId, 
+						std::shared_ptr <Event>
+					> 
+			>(windowSize.height)
+		);
+	}
+	void addEvent (Point2d pos, EventTypeId typeId, std::shared_ptr <Event> event) {
+		auto yTree = m_tree.find(pos.x);
+		auto location = yTree->find(pos.y);
+		if (location == yTree->end()) {
+			yTree->insert(
+				std::unordered_map <
+					EventTypeId, 
+					std::shared_ptr <Event>
+				> {
+					{ typeId, event }
+				},
+				pos.y
+			);
+		}
+		else {
+			(*location)[typeId] = event;
+		}
+	}
+	void removeEvent() {
+		
+	}
+};
 
 
 // genarate type Id for new type of event
@@ -18,19 +79,19 @@ int eventTypeId() {
 }
 
 using listItr = std::list < std::shared_ptr <Event> >::iterator;
-using EventType = int;
+using EventTypeId = int;
 using EventId = int;
 
 class Div;
 
 class EventsSystem {
 private:
-	static std::unordered_map < EventType, std::list < std::shared_ptr <Event> > > m_events;
-	static std::unordered_map < EventId, listItr > m_eventsItr;
+	EventsTree m_eventsTree;
+	std::unordered_map < EventId, std::shared_ptr <Event> > m_events;
 private:
 	class Mouse {
 	private:
-		static Point m_pos;
+		static Point2d m_pos;
 	private:
 		static inline bool isMouseEvent(Uint32 Event) {
 			return Event >= SDL_MOUSEMOTION && Event <= SDL_MOUSEWHEEL;
@@ -40,11 +101,11 @@ private:
 	public:
 		static void update();
 		// get position
-		static Point getPos() { // Point is cheap to copy
+		static Point2d getPos() { // Point2d is cheap to copy
 			return m_pos;
 		}
 
-		static Point getPosOnBoard();
+		static Point2d getPosOnBoard();
 	};
 	class Keyboard {
 	private:
@@ -59,7 +120,7 @@ private:
 	static Keyboard m_keyboard;
 public:
 	static void addEvent(std::shared_ptr <Event> Event, EventId eventId);
-	static void removeEvent(EventType eventType, EventId eventId);
+	static void removeEvent(EventTypeId eventType, EventId eventId);
 	static void handleEvents();
 
 	static void addDiv(std::shared_ptr <Div> div) {
@@ -96,7 +157,7 @@ public:
 class Div : public Entity {
 private:
 	Rect myDest_;
-	std::unordered_map<EventType, std::vector<std::shared_ptr <Event>>> myEvents_;
+	std::unordered_map<EventTypeId, std::vector<std::shared_ptr <Event>>> myEvents_;
 public:
 	// consturctor
 	Div(Rect dest) : myDest_(dest) {}

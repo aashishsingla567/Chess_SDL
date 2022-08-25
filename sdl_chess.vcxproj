@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -129,7 +129,7 @@
     <ClInclude Include="AssetsManager.hpp" />
     <ClInclude Include="gameEntities.hpp" />
     <ClInclude Include="imageObject.hpp" />
-    <ClInclude Include="OrderedVector.h" />
+    <ClInclude Include="RangeTree.h" />
     <ClInclude Include="Sprite.hpp" />
     <ClInclude Include="SDL_memory.h" />
     <ClInclude Include="TextureHandler.hpp" />
