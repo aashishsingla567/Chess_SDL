@@ -19,6 +19,7 @@ std::unique_ptr <Image> TextureHandler::loadTexture(const char* path) {
 		);
 	}
 
+    // new commnet
     // imporove quality
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "2");
 

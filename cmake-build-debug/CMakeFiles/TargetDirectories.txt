@@ -1,0 +1,3 @@
+/home/singla/Development/sdl/Chess_SDL/cmake-build-debug/CMakeFiles/Chess_SDL.dir
+/home/singla/Development/sdl/Chess_SDL/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/singla/Development/sdl/Chess_SDL/cmake-build-debug/CMakeFiles/rebuild_cache.dir

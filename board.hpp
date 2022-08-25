@@ -6,9 +6,9 @@
 
 enum PIECE_NAMES {
 
-	b_rook1, 
+	b_rook1,
 	b_bishop1, 
-	b_knight1, 
+	b_knight1,
 	
 	b_king1,
 	b_queen1,
@@ -23,7 +23,7 @@ enum PIECE_NAMES {
 	
 	w_rook1, 
 	w_bishop1, 
-	w_knight1, 
+	w_knight1,
 	
 	w_king1,
 	w_queen1,
