@@ -64,6 +64,15 @@ public:
 	}
 };
 
+/*
+ * TODO :: Make an events system
+ * Characteristics:-
+ *  1. Loops through all the types of events (Active only) in the main loop. [ TC :: O (n) ]
+ *  2. For each event find trigger corresponding to it.  [ TC ::  O (1) TO O (log (n)) ]
+ *  3. Execute the event for the trigger. [ TC :: any ]
+ *  4. Update the corresponding entities and components for the trigger. [ TC :: O (n) ]
+ *
+ * */
 
 // genarate type Id for new type of event
 inline int eventTypeIdGen() {
@@ -99,7 +108,7 @@ private:
 			// SDL_MOUSEEVENT are given values from [1024, 1027]
 		}
 	public:
-		static void update();
+		static void update(); // will execute the corresponding events for the trigger
 		// get position
 		static Point2d getPos() { // Point2d is cheap to copy
 			return m_pos;

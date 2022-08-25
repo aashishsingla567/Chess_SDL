@@ -22,6 +22,8 @@ enum TEXTURE_NAMES {
 	w_knight,
 	w_queen,
 	w_rook,
+
+    TEST,
 };
 
 using sound = int; // ! CHANGE WHEN ADDING SOUNDS

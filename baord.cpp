@@ -234,7 +234,7 @@ void board::init() {
 	associatePiecesWithTiles();
 }
 
-point board::getPosOnWindow(point pos) {
+Point2d board::getPosOnWindow(Point2d pos) {
 	return {
 		pos.x * board::WIDTH / ROWS + LEFT_MARGIN,
 		pos.y * board::HEIGHT / COLS + TOP_MARGIN

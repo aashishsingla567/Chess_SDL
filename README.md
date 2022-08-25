@@ -2,6 +2,6 @@
 
 includes {
   sdl.h,
-  sdl_image
+  sdl_image.h
 }
 

@@ -1,0 +1,52 @@
+[
+{
+  "directory": "/home/singla/Development/sdl/Chess_SDL/build",
+  "command": "/usr/bin/g++  -I/home/singla/Development/sdl/Chess_SDL/. -I/usr/include/SDL2 -I/usr/include/SDL -g -std=gnu++20 -o CMakeFiles/Chess_SDL.dir/AssetsManager.cpp.o -c /home/singla/Development/sdl/Chess_SDL/AssetsManager.cpp",
+  "file": "/home/singla/Development/sdl/Chess_SDL/AssetsManager.cpp"
+},
+{
+  "directory": "/home/singla/Development/sdl/Chess_SDL/build",
+  "command": "/usr/bin/g++  -I/home/singla/Development/sdl/Chess_SDL/. -I/usr/include/SDL2 -I/usr/include/SDL -g -std=gnu++20 -o CMakeFiles/Chess_SDL.dir/baord.cpp.o -c /home/singla/Development/sdl/Chess_SDL/baord.cpp",
+  "file": "/home/singla/Development/sdl/Chess_SDL/baord.cpp"
+},
+{
+  "directory": "/home/singla/Development/sdl/Chess_SDL/build",
+  "command": "/usr/bin/g++  -I/home/singla/Development/sdl/Chess_SDL/. -I/usr/include/SDL2 -I/usr/include/SDL -g -std=gnu++20 -o CMakeFiles/Chess_SDL.dir/ECS.cpp.o -c /home/singla/Development/sdl/Chess_SDL/ECS.cpp",
+  "file": "/home/singla/Development/sdl/Chess_SDL/ECS.cpp"
+},
+{
+  "directory": "/home/singla/Development/sdl/Chess_SDL/build",
+  "command": "/usr/bin/g++  -I/home/singla/Development/sdl/Chess_SDL/. -I/usr/include/SDL2 -I/usr/include/SDL -g -std=gnu++20 -o CMakeFiles/Chess_SDL.dir/EventsHandler.cpp.o -c /home/singla/Development/sdl/Chess_SDL/EventsHandler.cpp",
+  "file": "/home/singla/Development/sdl/Chess_SDL/EventsHandler.cpp"
+},
+{
+  "directory": "/home/singla/Development/sdl/Chess_SDL/build",
+  "command": "/usr/bin/g++  -I/home/singla/Development/sdl/Chess_SDL/. -I/usr/include/SDL2 -I/usr/include/SDL -g -std=gnu++20 -o CMakeFiles/Chess_SDL.dir/EventsSystem.cpp.o -c /home/singla/Development/sdl/Chess_SDL/EventsSystem.cpp",
+  "file": "/home/singla/Development/sdl/Chess_SDL/EventsSystem.cpp"
+},
+{
+  "directory": "/home/singla/Development/sdl/Chess_SDL/build",
+  "command": "/usr/bin/g++  -I/home/singla/Development/sdl/Chess_SDL/. -I/usr/include/SDL2 -I/usr/include/SDL -g -std=gnu++20 -o CMakeFiles/Chess_SDL.dir/Game.cpp.o -c /home/singla/Development/sdl/Chess_SDL/Game.cpp",
+  "file": "/home/singla/Development/sdl/Chess_SDL/Game.cpp"
+},
+{
+  "directory": "/home/singla/Development/sdl/Chess_SDL/build",
+  "command": "/usr/bin/g++  -I/home/singla/Development/sdl/Chess_SDL/. -I/usr/include/SDL2 -I/usr/include/SDL -g -std=gnu++20 -o CMakeFiles/Chess_SDL.dir/GameEntites.cpp.o -c /home/singla/Development/sdl/Chess_SDL/GameEntites.cpp",
+  "file": "/home/singla/Development/sdl/Chess_SDL/GameEntites.cpp"
+},
+{
+  "directory": "/home/singla/Development/sdl/Chess_SDL/build",
+  "command": "/usr/bin/g++  -I/home/singla/Development/sdl/Chess_SDL/. -I/usr/include/SDL2 -I/usr/include/SDL -g -std=gnu++20 -o CMakeFiles/Chess_SDL.dir/main.cpp.o -c /home/singla/Development/sdl/Chess_SDL/main.cpp",
+  "file": "/home/singla/Development/sdl/Chess_SDL/main.cpp"
+},
+{
+  "directory": "/home/singla/Development/sdl/Chess_SDL/build",
+  "command": "/usr/bin/g++  -I/home/singla/Development/sdl/Chess_SDL/. -I/usr/include/SDL2 -I/usr/include/SDL -g -std=gnu++20 -o CMakeFiles/Chess_SDL.dir/Sprite.cpp.o -c /home/singla/Development/sdl/Chess_SDL/Sprite.cpp",
+  "file": "/home/singla/Development/sdl/Chess_SDL/Sprite.cpp"
+},
+{
+  "directory": "/home/singla/Development/sdl/Chess_SDL/build",
+  "command": "/usr/bin/g++  -I/home/singla/Development/sdl/Chess_SDL/. -I/usr/include/SDL2 -I/usr/include/SDL -g -std=gnu++20 -o CMakeFiles/Chess_SDL.dir/TextureHandler.cpp.o -c /home/singla/Development/sdl/Chess_SDL/TextureHandler.cpp",
+  "file": "/home/singla/Development/sdl/Chess_SDL/TextureHandler.cpp"
+}
+]

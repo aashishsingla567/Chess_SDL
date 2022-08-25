@@ -43,7 +43,7 @@ SDL_Event Game::Event;
 
 static Entity windowEntity;
 
-const bool Game::init()
+bool Game::init()
 {
 
     using namespace std;
@@ -61,13 +61,17 @@ const bool Game::init()
         return false;
     }
 
+    constexpr int SDLImgFlags = IMG_INIT_PNG;
     // SDL_Image
-    if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG))
+    if (!(IMG_Init( SDLImgFlags ) & SDLImgFlags))
     {
 
 #if DEBUG_MODE == IS_ON
         cout << "Failed to initialize SDL_Image for PNG, ERROR :: " << IMG_GetError() << endl;
 #endif // DEBUG_MODE
+
+        // throw runtime error
+        throw std::runtime_error("SDL_image initialization ERROR ::" + string(IMG_GetError()));
         return false;
     }
 
@@ -92,7 +96,7 @@ Game::Game(
 
     using namespace std;  // DON'T USE OUTSIDE // only for debug
 
-    if (init() == false)
+    if (!init())
     {
 
         cout << "INITILIZATIONS FAILED!" << endl;
@@ -105,7 +109,7 @@ Game::Game(
     auto flags = ((fullscreen) ? SDL_WINDOW_FULLSCREEN : 0) | SDL_WINDOW_ALLOW_HIGHDPI;
 
     // ---------- create window -------------
-    this->window =
+    Game::window =
         sdl::make_shared(SDL_CreateWindow (
             windowName.c_str(),
             xPos,  yPos,         
@@ -114,7 +118,7 @@ Game::Game(
         )
     );
 
-    if (this->window == nullptr)
+    if (Game::window == nullptr)
     {
 
         std::cout << "SDL could not create window, ERROR :: " << SDL_GetError() << std::endl;
@@ -124,9 +128,9 @@ Game::Game(
         return;
     }
 
-    this->renderer = sdl::make_shared(SDL_CreateRenderer(this->window.get(), -1, 0));
+    Game::renderer = sdl::make_shared(SDL_CreateRenderer(Game::window.get(), -1, 0));
 
-    if (this->renderer == nullptr)
+    if (Game::renderer == nullptr)
     {
 
         std::cout << "SDL could not create renderer, ERROR :: " << SDL_GetError() << std::endl;
@@ -136,7 +140,7 @@ Game::Game(
         return;
     }
 
-    SDL_SetRenderDrawColor(this->renderer.get(), 255, 255, 255, 255);
+    SDL_SetRenderDrawColor(Game::renderer.get(), 255, 255, 255, 255);
 
     /***************************************************************************
     *                           IMPORTANT NOTE:-                               *
