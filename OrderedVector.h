@@ -2,18 +2,7 @@
 /// this file is subject to RENAME (maybe RangeTree)
 #include <iostream>
 #include <vector>
-#include <functional>
-
-constexpr static inline bool isEqual(int a, int b) {
-	return a == b;
-}
-constexpr static inline bool isLessThan(int a, int b) {
-	return a < b;
-}
-constexpr static inline bool isLessThanEqual(int a, int b) {
-	return a <= b;
-}
-extern const int WIN_W;
+#include <memory>
 
 /*
 *	TODO :: Make a interval based data structure 
@@ -30,10 +19,46 @@ class RangeTree {
 public:
 	using valueType = T;
 private:
-	template <typename RangeTreeItr> 
-	class _RT_itr {
+	int width; // global width
+    std::make_shared<TreeNode> root;
+private:
+	class TreeNode {
 	public:
-		using val_t = typename RangeTree valueType;
+	    valueType val;
+		int width;
+		int pos;
+		int n;
+		std::shared_ptr <TreeNode> parent;
+		std::vector < std::shared_ptr <TreeNode> > nodes;
+	public:
+		TreeNode(int width, int pos,  int n = 10) { /// ! make value of n soft coded
+			this->width = width;
+			this->pos = pos;
+			this->n = (pos * n)/ width;
+			if (nodes.empty())
+				nodes.reserve(this->n);
+		}
+		valueType getValue () const {
+		    return this->val;
+		}
+		void setValue (const valueType& val) {
+		    this->val = val;
+		}
+		void setValue (valueType&& val) {
+		    this->val = std::move (val);
+		}
+		void setChild (long index, std::shared_ptr <TreeNode> child ) {
+		    this->nodes[index] = child;
+		    child->parent = std::shared_ptr <TreeNode> (this);
+		}
+		std::shared_ptr <TreeNode> getChild (long index) {
+		    return this->nodes[index];
+		}
+	};
+	template <typename RangeTree>
+	class iterator {
+	public:
+		using val_t = typename RangeTree::valueType;
 		using ptr_t = std::shared_ptr < typename RangeTree::TreeNode >;
 	private:
 		ptr_t m_ptr;
@@ -44,35 +69,35 @@ private:
 		ptr_t& operator-> () {
 			return this->m_ptr;
 		}
-		val_t& operator++ () {
-			// 
-		}
+// 		val_t& operator++ () {
+// 			// 
+// 		}
 	};
-	class TreeNode {
-	public:
-		int width;
-		int xPos;
-		int n;
-		std::vector < T > nodes;
-	public:
-		TreeNode(int width, int xPos, std::vector <T> nodes = {}) {
-			this->width = width;
-			this->xPos = xPos;
-			this->n = log10(width);
-			if (nodes.empty())
-				nodes.reserve(this->n);
-			this->nodes = std::move(nodes);
-		}
-	};
-	int width; // global widht size of the window
-	TreeNode root;
-public:
-	void insert(const T& val, int xPos) {
+
+private:
+	static constexpr inline int getIndex (int pos, int n, int width) {
+		return (pos * n) / width;
+	}
+	static constexpr inline int getPos (int index, int n, int width) {
+		return (index * width) / n;
+	}
+private:
+	void insert(const T& val, int pos, std::shared_ptr <TreeNode> root) {
+		int index = getIndex (pos, n, width);
+		int expectedPos = getPos (index, n, width);
+		if ( 
+	}
+	T& find(int pos, std::shared_ptr <TreeNode> root) {
 		
 	}
-	T& find(int xPos) {
-
-	}
+public:
+    RangeTree (int width) {
+        this->root = std::make_shared <TreeNode> (
+            TreeNode (width, 0, 10);
+        );
+        this->root->parent = nullptr;      
+    }
+	
 };
 
 struct Size {
