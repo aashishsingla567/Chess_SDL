@@ -83,9 +83,18 @@ private:
 	}
 private:
 	void insert(const T& val, int pos, std::shared_ptr <TreeNode> root) {
-		int index = getIndex (pos, n, width);
-		int expectedPos = getPos (index, n, width);
-		if ( 
+		int index = getIndex (pos, root->n, root->width);
+		int expectedPos = getPos (index, root->n, root->width);
+		if ( expectedPos == pos ) {
+			int n = std::min (root->n, root->width % root->n);
+			int width = root->width / n;
+			auto node = std::make_shared <TreeNode> (
+				TreeNode (
+					width, pos, n
+				)
+			);
+			root->insertNode (index, node);
+		}
 	}
 	T& find(int pos, std::shared_ptr <TreeNode> root) {
 		
@@ -121,3 +130,4 @@ public:
 
 	};
 };
+		
