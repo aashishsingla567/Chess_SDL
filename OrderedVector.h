@@ -4,6 +4,98 @@
 #include <vector>
 #include <memory>
 
+
+// TODO :: eleminate uneccessary DS
+template <typename T>
+class OrderedVector : public std::vector <T> {
+public:
+    // copy construtor
+    OrderedVector (const std::vector <T>& vec) : std::vector <T> (vec) {
+        std::sort (this->begin(), this->end());
+    }
+    
+    // move constructor
+    OrderedVector (std::vector <T>&& vec) : std::vector <T> (std::move (vec)) {
+        std::sort (this->begin(), this->end());
+    }
+    
+    void sort () {
+        std::sort (this->begin(), this->end());
+    }
+    
+    override void push_back ( const T& val ) {
+        this->push_back (val);
+        this->sort ();
+    }
+    
+    // TODO :: refactor with hash_set
+    template <typename F1, F2>
+    std::vector <T> getIntersections (
+        const OrederedVector <T>& other,
+        const F1&& equality,
+        const F2&& inEquality
+    ) {
+        std::vector <T> pois; // point of intersections
+        auto& it1 = this->begin();
+        auto& it2 = other.begin();
+        while (it1 != this->end() || it2 != other.end()) {
+            while (equality (*it1, *it2)) {
+                pois.push_back (*it1);
+                ++it1;
+                ++it2;
+            }
+            // it1->pos < it2->pos
+            while (
+                inEquality (*it1, *it2) 
+                && !equality (*it1, *it2)
+            ) {
+                ++it1;
+            }
+            while ( 
+                !inEquality (*it1, *it2) 
+                && !equality (*it1, *it2) 
+            ) {
+                ++it2;
+            }
+        }
+        return pois;
+    }
+};
+
+template <typename T, typename S, typename C>
+struct HackedQueue : private priority_queue<T, S, C> {
+private:
+    std::vector <T>& m_container = Container (std::priority_queue <T, S, C> (*this));
+public:
+    static S& Container(priority_queue<T, S, C>& q) {
+        return q.*&HackedQueue::c;
+    }
+    std::vector <T> :: iterator begin () {
+        return m_container.begin();
+    }
+    std::vector <T> :: iterator end () {
+        return m_container.end();
+    }
+    std::vector <T> :: reverse_iterator rbegin () {
+        return m_container.rbegin();
+    }
+    std::vector <T> :: reverse_iterator rend () {
+        return m_container.rend();
+    }
+    
+    std::vector <T> getIntersections (
+        const HackedQueue& other
+    ) {
+        std::vector <T> pois;
+        std::unordered_set <T> has ( this->begin, this->end );
+        for (const auto& x: other) {
+            if (has.find (x) != has.end()) {
+             `pois.push_back (x);   
+            }
+        }
+        return pois;
+    }
+};
 /*
 *	TODO :: Make a interval based data structure 
 *	with following features :- 
