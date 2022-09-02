@@ -106,6 +106,48 @@ public:
 *	-> This rule recursively applies to each node.
 */
 
+
+// #include "Event.hpp"
+class Event;
+
+class Trigger {
+private:
+	using EventTypeId = int;
+private:
+	static idGen;
+	int typeId;
+	int id;
+	std::unordered_map < EventTypeId, std::unordered_set <std::shared_ptr <Event>> > eventsMap;
+public:
+	
+	template <typename Trigger>
+	void init () {
+		typeId = getTypeid <Trigger> ();
+		id = this->idGen++;
+	}
+	
+	template <typename Event>
+	std::shared_ptr <Event> addEvent (std::shared_ptr <Event> event_ptr) {
+		eventsMap [getEventId <Event>()] = event_ptr;
+	}
+	
+	template <typename Event>
+	void removeEvent (std::shared_ptr <Event> event_ptr) {
+		eventsMap.erase (getEventId <Event> ());
+	}
+	
+	void executeEvents () {
+		for (auto& [id, set] : eventsMap) {
+			for (auto& event_ptr: set) {
+				if (event_ptr != nullptr)
+					event_ptr->execute ();
+			}
+		}
+	}
+};
+Trigger::idGen = 0;
+
+
 template <typename T>
 class RangeTree {
 public:
